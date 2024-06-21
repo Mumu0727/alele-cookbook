@@ -1,0 +1,23 @@
+.menu-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+.menu-item {
+  width: 30%;
+  text-align: center;
+  height: 180px;
+  .menu-icon {
+    width: 80px;
+    height: 80px;
+  }
+  .menu-name {
+    display: block;
+  }
+}
+.menu-bg {
+  width: 100%;
+  display: block;
+}
