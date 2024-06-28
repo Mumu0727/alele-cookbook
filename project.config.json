@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "dist/",
-  "projectname": "alele-cookbook",
+  "projectname": "taro",
   "description": "",
   "appid": "wx163d0b4118c51f7b",
   "setting": {
@@ -15,12 +15,10 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "minifyWXML": false,
-    "minifyWXSS": false,
     "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.4.7",
+  "libVersion": "3.4.8",
   "srcMiniprogramRoot": "dist/",
   "packOptions": {
     "ignore": [],

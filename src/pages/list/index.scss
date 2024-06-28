@@ -1,8 +1,14 @@
 .menu-list {
+  margin: 40px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 0 12px 8px rgba(232, 232, 232, 0.627);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%;
+  width: calc(100% - 80px);
+  padding-top: 40px;
   gap: 10px;
 }
 .menu-item {
@@ -15,6 +21,7 @@
   }
   .menu-name {
     display: block;
+    font-size: 24px;
   }
 }
 .menu-bg {

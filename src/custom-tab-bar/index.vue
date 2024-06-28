@@ -2,27 +2,28 @@
  * @Description:
  * @Author: muqingkun
  * @Date: 2024-06-19 15:19:19
- * @LastEditTime: 2024-06-19 17:47:25
+ * @LastEditTime: 2024-06-28 17:36:15
  * @LastEditors: muqingkun
  * @Reference:
 -->
 <template>
-  <view class="tab-bar">
-    <view class="tab-bar-box">
-      <view v-for="(item, index) in list" :key="index" class="tab-bar-item" @tap="switchTab(index, item.pagePath)">
-        <view class="tab-bar-item-add" v-if="item.unique">
-          <cover-image :src="selected === index ? item.selectedIconPath : item.iconPath" />
-        </view>
-        <view v-else>
-          <cover-image :src="selected === index ? item.selectedIconPath : item.iconPath" />
-        </view>
-      </view>
-    </view>
-  </view>
+  <View class="tab-bar">
+    <View class="tab-bar-box">
+      <View v-for="(item, index) in list" :key="index" class="tab-bar-item" @tap="switchTab(index, item.pagePath)">
+        <View class="tab-bar-item-add" v-if="item.unique">
+          <Image :src="selected === index ? item.selectedIconPath : item.iconPath" />
+        </View>
+        <View v-else>
+          <Image :src="selected === index ? item.selectedIconPath : item.iconPath" />
+        </View>
+      </View>
+    </View>
+  </View>
 </template>
 
 <script setup>
 import Taro from '@tarojs/taro'
+import { View, Image } from '@tarojs/components'
 import { computed }  from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
@@ -92,7 +93,7 @@ function setSelected (index) {
   height: 100px;
   margin-top: 20px;
   font-weight: 700;
-  cover-image {
+  Image {
     padding-top: 10px;
     width: 80px;
     height: 80px;
@@ -110,7 +111,7 @@ function setSelected (index) {
   font-size: 28px;
 }
 
-.tab-bar-item cover-image {
+.tab-bar-item Image {
   padding-top: 40px;
   width: 60px;
   height: 60px;

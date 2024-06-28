@@ -2,7 +2,7 @@
  * @Description:
  * @Author: muqingkun
  * @Date: 2024-06-19 15:04:19
- * @LastEditTime: 2024-06-20 19:35:49
+ * @LastEditTime: 2024-06-28 14:24:23
  * @LastEditors: muqingkun
  * @Reference:
  */
@@ -48,8 +48,8 @@ export default {
     return () => {
       return (
         <View>
-          <Image class="menu-bg" src={menuBg}></Image>
           <Search />
+          <Image class="menu-bg" src={menuBg}></Image>
           <View class="menu-list">
             {state.category.map((item, i) => (<>
               <View class="menu-item" onClick={() => handleClick(item.name)}>

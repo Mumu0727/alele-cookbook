@@ -2,7 +2,7 @@
  * @Description:
  * @Author: muqingkun
  * @Date: 2024-06-19 14:49:18
- * @LastEditTime: 2024-06-19 16:28:17
+ * @LastEditTime: 2024-06-28 14:21:56
  * @LastEditors: muqingkun
  * @Reference:
  */
@@ -39,6 +39,6 @@ export default defineAppConfig({
     backgroundTextStyle: 'light',
     navigationBarBackgroundColor: '#fff',
     navigationBarTitleText: 'WeChat',
-    navigationBarTextStyle: 'black'
+    navigationBarTextStyle: 'black',
   }
 })
