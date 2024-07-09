@@ -37,9 +37,9 @@ export default defineComponent({
 
     return () => (
       <View>
-        <View class="search-box" style={`height:${rect.value.height}px; width: calc(100% - ${rect.value.width + 60}px); top: ${rect.value.top}px`}>
+        <View class="search-box" >
           <View class="search-btn" type="primary"></View>
-          <Input class="search-input" type="text" placeholder="搜菜谱" />
+          <Input class="search-input" type="text" placeholder="搜想吃" />
         </View>
       </View>
     )

@@ -8,7 +8,6 @@
  */
 import { reactive } from 'vue'
 import { View, Text, Button, Image } from '@tarojs/components'
-import Search from '@/components/search/index';
 import dict from '@/dict';
 import './index.scss'
 import qita from '@/images/qita.png';
@@ -25,7 +24,6 @@ export default {
     View,
     Text,
     Button,
-    Search
   },
   setup() {
     const iconlist = [
@@ -48,7 +46,6 @@ export default {
     return () => {
       return (
         <View>
-          <Search />
           <Image class="menu-bg" src={menuBg}></Image>
           <View class="menu-list">
             {state.category.map((item, i) => (<>

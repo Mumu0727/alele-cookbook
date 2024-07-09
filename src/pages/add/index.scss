@@ -1,6 +1,14 @@
-.form_view {
-  padding: 40px;
-  .nut-cell-group {
-    box-shadow: 0 0 12px 8px rgba(232, 232, 232, 0.5);
-  }
+.menu_category {
+  height: calc(100vh - 130px - env(safe-area-inset-bottom));
+  background-color: #fff;
+}
+.flex_btn {
+  position: fixed;
+  bottom: 200px;
+  right: 50px;
+  width: 200px;
+  height: 80px;
+  border-radius: 40px;
+  cursor: pointer;
+  z-index: 1000;
 }

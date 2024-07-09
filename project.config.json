@@ -15,10 +15,11 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "ignoreUploadUnusedFiles": true
+    "ignoreUploadUnusedFiles": true,
+    "condition": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.4.8",
+  "libVersion": "3.4.6",
   "srcMiniprogramRoot": "dist/",
   "packOptions": {
     "ignore": [],
