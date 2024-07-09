@@ -1,7 +1,10 @@
 import axios from "axios";
 
+
+const baseURL = process.env.TARO_APP_API
+
 const request = axios.create({
-  baseURL: process.env.TARO_APP_API,
+  baseURL,
   timeout: 50000,
 });
 
