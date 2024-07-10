@@ -2,7 +2,7 @@
  * @Description:
  * @Author: muqingkun
  * @Date: 2024-06-27 20:50:14
- * @LastEditTime: 2024-06-27 21:11:17
+ * @LastEditTime: 2024-07-10 17:23:15
  * @LastEditors: muqingkun
  * @Reference:
  */
@@ -25,7 +25,7 @@ const config = {
     375: 2 / 1
   },
   sourceRoot: 'src',
-  outputRoot: 'dist',
+  outputRoot: 'front',
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
   },
@@ -107,7 +107,7 @@ const config = {
     }
   }
 }
-
+console.log('===process.env.NODE_ENV===', process.env.NODE_ENV);
 module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))
