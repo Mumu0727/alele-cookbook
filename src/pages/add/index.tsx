@@ -3,7 +3,7 @@ import { View, Text, Button } from '@tarojs/components'
 import dict from '@/dict';
 import Search from '@/components/search/index';
 import { HeartFill, Uploader, Del2 } from '@nutui/icons-vue-taro'
-import request from '@/http/request';
+import {request} from '@/http/request';
 // import axios from 'axios'
 import './index.scss';
 
@@ -15,6 +15,7 @@ export default {
     Button,
   },
   setup() {
+    const IMG_URL = process.env.TARO_APP_IMG
     const state = reactive<{[k: string]: any}>({
       category: dict.category,
       value: 1,
@@ -22,7 +23,6 @@ export default {
       menuList: [],
       wishList: []
     })
-    
 
     const addWishList = (item) => {
       // TODO: add to wish list
@@ -35,8 +35,7 @@ export default {
     }
 
     const getMenus = () => {
-      
-      request.get('/menu/query').then((res) => {
+      request('/menu/query', {category: state.value}).then((res) => {
         console.log('==res===', res);
         state.menuList = res.data
       })
@@ -55,14 +54,15 @@ export default {
           <NutTabs v-model={state.value} direction="vertical" style="height: 100%" auto-height title-scroll>
             {state.category.map((item, index) => (
               <NutTabPane pane-key={item.value} title={item.name} key={index}>
-                {state.menuList.map((menuL, index) => (
+                {state.menuList.map((menu, index) => (
                   <NutCard
-                    title={menuL.name}
+                    title={menu.name}
+                    imgUrl={IMG_URL + menu.imgUrl}
                     price="520"
                     v-slots={{
                       footer: () => (<NutButton
                         color="linear-gradient(to right, #ff6034, #ee0a24)"
-                        size="small" 
+                        size="small"
                         type="primary"
                         onClick={() => {addWishList(item)}}
                         v-slots={{
@@ -78,23 +78,23 @@ export default {
             ))
             }
           </NutTabs>
-            
+
           <NutButton
-            class="flex_btn" 
-            type="primary" 
-            size="large" 
+            class="flex_btn"
+            type="primary"
+            size="large"
             onClick={() => {state.show = true}}
             v-slots={{
               icon: () => (<HeartFill class="nut-icon-am-breathe nut-icon-am-infinite"></HeartFill>),
             }}
           >心愿单</NutButton>
           <NutPopup v-model={[state.show , 'visible']} position="bottom">
-            {state.wishList.map((item, index) => ( 
+            {state.wishList.map((item, index) => (
               <View style="max-height: 400px">
                 <NutCell round-radius="0" title="Swipe Left" v-slots={{
                   link: () => (<NutButton
                     color="linear-gradient(to right, #ff6034, #ee0a24)"
-                    size="small" 
+                    size="small"
                     type="primary"
                     onClick={() => {delWishList(item)}}
                     v-slots={{
