@@ -2,7 +2,7 @@
  * @Description:
  * @Author: muqingkun
  * @Date: 2024-06-19 15:04:19
- * @LastEditTime: 2024-06-28 14:40:03
+ * @LastEditTime: 2024-07-24 20:51:37
  * @LastEditors: muqingkun
  * @Reference:
  */
@@ -36,7 +36,7 @@ export default defineComponent({
     });
 
     return () => (
-      <View>
+      <View class="search-container">
         <View class="search-box" >
           <View class="search-btn" type="primary"></View>
           <Input class="search-input" type="text" placeholder="搜想吃" />

@@ -1,4 +1,5 @@
 import { reactive, watch } from 'vue'
+import { useReachBottom } from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components'
 import dict from '@/dict';
 import Search from '@/components/search/index';
@@ -6,7 +7,7 @@ import { HeartFill, Uploader, Del2 } from '@nutui/icons-vue-taro'
 import {request} from '@/http/request';
 // import axios from 'axios'
 import './index.scss';
-
+const IMG_URL = process.env.TARO_APP_IMG
 export default {
   name: 'Index',
   components: {
@@ -14,13 +15,17 @@ export default {
     Text,
     Button,
   },
+  onReachBottom() {
+    console.log('bottom');
+  },
   setup() {
-    const IMG_URL = process.env.TARO_APP_IMG
+
     const state = reactive<{[k: string]: any}>({
       category: dict.category,
       value: 1,
       show: false,
       menuList: [],
+      pageInfo: {},
       wishList: []
     })
 
@@ -35,45 +40,78 @@ export default {
     }
 
     const getMenus = () => {
-      request('/menu/query', {category: state.value}).then((res) => {
-        console.log('==res===', res);
-        state.menuList = res.data
-      })
       // TODO: get menus
-      state.menuList = []
+      const {category, limit, page} = state.pageInfo[state.value]
+      request('/menu/query', {category, limit, page }).then(({code, data}) => {
+        if (code === 1) {
+          if (data.totalPages >= state.pageInfo[state.value].page) {
+            state.pageInfo[state.value].page = data.page + 1
+            state.pageInfo[state.value].totalPages = data.totalPages
+            if (Array.isArray(state.pageInfo[state.value].list)) {
+              state.pageInfo[state.value].list.push(...data.records)
+            } else {
+              state.pageInfo[state.value].list = data.records
+            }
+          }
+        }
+      })
     }
 
-    watch(() => state.value, () => {
+    useReachBottom(() => {
+      if (state.pageInfo[state.value].page >= state.pageInfo[state.value].totalPages) {
+        return
+      }
       getMenus()
+    });
+
+    watch(() => state.value, () => {
+      if (!state.pageInfo[state.value]) {
+        state.menuList = []
+        state.pageInfo[state.value] = {
+          category: state.value,
+          limit: 10,
+          page: 1
+        }
+        getMenus()
+      } else {
+        state.menuList = state.pageInfo[state.value].list
+      }
+    }, {
+      immediate: true
     })
 
     return () => {
       return (
         <View class="menu_category">
           <Search />
-          <NutTabs v-model={state.value} direction="vertical" style="height: 100%" auto-height title-scroll>
+          <NutTabs v-model={state.value} direction="vertical" animated-time="0" auto-height title-scroll>
             {state.category.map((item, index) => (
               <NutTabPane pane-key={item.value} title={item.name} key={index}>
-                {state.menuList.map((menu, index) => (
-                  <NutCard
-                    title={menu.name}
-                    imgUrl={IMG_URL + menu.imgUrl}
-                    price="520"
-                    v-slots={{
-                      footer: () => (<NutButton
-                        color="linear-gradient(to right, #ff6034, #ee0a24)"
-                        size="small"
-                        type="primary"
-                        onClick={() => {addWishList(item)}}
+                {
+                  state.pageInfo[state.value] && state.pageInfo[state.value]?.list ? (
+                    state.pageInfo[state.value]?.list.map((menu, index) => (
+                      <NutCard
+                        title={menu.name}
+                        imgUrl={IMG_URL + menu.imgUrl}
+                        price="520"
                         v-slots={{
-                          icon: () => (<Uploader />),
+                          footer: () => (<NutButton
+                            color="linear-gradient(to right, #ff6034, #ee0a24)"
+                            size="small"
+                            type="primary"
+                            onClick={() => {addWishList(item)}}
+                            v-slots={{
+                              icon: () => (<Uploader />),
+                            }}
+                          />),
+                          origin: () => (<View></View>),
                         }}
-                      />),
-                      origin: () => (<View></View>),
-                    }}
-                  >
-                  </NutCard>
-                ))}
+                      >
+                      </NutCard>
+                    ))
+                  ) : null
+                }
+                {}
               </NutTabPane>
             ))
             }

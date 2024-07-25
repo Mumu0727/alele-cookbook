@@ -12,3 +12,27 @@
   cursor: pointer;
   z-index: 1000;
 }
+.nut-tabs.vertical>.nut-tabs__titles.scrollable {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  height: calc(100vh - 130px - env(safe-area-inset-bottom));
+}
+.nut-tabs {
+  padding-bottom: calc(130px + env(safe-area-inset-bottom));
+  .nut-tabs__content {
+    padding-left: 200px;
+  }
+}
+.nut-card {
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+.nut-card__left {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+.nut-tab-pane {
+  padding-bottom: 90px;
+}
