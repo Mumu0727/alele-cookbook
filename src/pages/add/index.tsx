@@ -3,7 +3,9 @@ import { useReachBottom } from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components'
 import dict from '@/dict';
 import Search from '@/components/search/index';
+import Card from '@/components/card/index';
 import { HeartFill, Uploader, Del2 } from '@nutui/icons-vue-taro'
+
 import {request} from '@/http/request';
 // import axios from 'axios'
 import './index.scss';
@@ -84,34 +86,24 @@ export default {
       return (
         <View class="menu_category">
           <Search />
-          <NutTabs v-model={state.value} direction="vertical" animated-time="0" auto-height title-scroll>
+          <NutTabs v-model={state.value} animated-time="0" auto-height title-scroll background="#fff">
             {state.category.map((item, index) => (
               <NutTabPane pane-key={item.value} title={item.name} key={index}>
                 {
                   state.pageInfo[state.value] && state.pageInfo[state.value]?.list ? (
-                    state.pageInfo[state.value]?.list.map((menu, index) => (
-                      <NutCard
-                        title={menu.name}
-                        imgUrl={IMG_URL + menu.imgUrl}
-                        price="520"
-                        v-slots={{
-                          footer: () => (<NutButton
-                            color="linear-gradient(to right, #ff6034, #ee0a24)"
-                            size="small"
-                            type="primary"
-                            onClick={() => {addWishList(item)}}
-                            v-slots={{
-                              icon: () => (<Uploader />),
-                            }}
-                          />),
-                          origin: () => (<View></View>),
-                        }}
-                      >
-                      </NutCard>
-                    ))
+                    <View class="container">
+                      {
+                        state.pageInfo[state.value]?.list.map((menu, index) => (
+                          <Card
+                            title={menu.name}
+                            imgUrl={menu.imgUrl}
+                          >
+                          </Card>
+                        ))
+                      }
+                    </View>
                   ) : null
                 }
-                {}
               </NutTabPane>
             ))
             }

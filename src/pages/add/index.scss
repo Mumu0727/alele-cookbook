@@ -12,17 +12,14 @@
   cursor: pointer;
   z-index: 1000;
 }
-.nut-tabs.vertical>.nut-tabs__titles.scrollable {
+.nut-tabs .nut-tabs__titles.scrollable {
   position: fixed;
-  top: 70px;
+  top: 40px;
   left: 0;
-  height: calc(100vh - 130px - env(safe-area-inset-bottom));
 }
 .nut-tabs {
   padding-bottom: calc(130px + env(safe-area-inset-bottom));
-  .nut-tabs__content {
-    padding-left: 200px;
-  }
+  padding-top: 40px;
 }
 .nut-card {
   margin-bottom: 20px;
@@ -35,4 +32,10 @@
 }
 .nut-tab-pane {
   padding-bottom: 90px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 两列布局 */
+  gap: 16px; /* 卡片之间的间距 */
 }
