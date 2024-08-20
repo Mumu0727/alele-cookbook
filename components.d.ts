@@ -8,10 +8,10 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     NutButton: typeof import('@nutui/nutui-taro')['Button']
-    NutCard: typeof import('@nutui/nutui-taro')['Card']
     NutCell: typeof import('@nutui/nutui-taro')['Cell']
     NutPopup: typeof import('@nutui/nutui-taro')['Popup']
     NutTabPane: typeof import('@nutui/nutui-taro')['TabPane']
     NutTabs: typeof import('@nutui/nutui-taro')['Tabs']
+    Waterfall: typeof import('./src/components/waterfall/index.vue')['default']
   }
 }

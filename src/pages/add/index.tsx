@@ -1,9 +1,9 @@
 import { reactive, watch } from 'vue'
 import { useReachBottom } from '@tarojs/taro';
-import { View, Text, Button } from '@tarojs/components'
+import { View, Text, Button, Image } from '@tarojs/components'
 import dict from '@/dict';
 import Search from '@/components/search/index';
-import Card from '@/components/card/index';
+import WaterFall from '@/components/waterfall/index.vue';
 import { HeartFill, Uploader, Del2 } from '@nutui/icons-vue-taro'
 
 import {request} from '@/http/request';
@@ -24,7 +24,7 @@ export default {
 
     const state = reactive<{[k: string]: any}>({
       category: dict.category,
-      value: 1,
+      type: 1,
       show: false,
       menuList: [],
       pageInfo: {},
@@ -43,16 +43,16 @@ export default {
 
     const getMenus = () => {
       // TODO: get menus
-      const {category, limit, page} = state.pageInfo[state.value]
+      const {category, limit, page} = state.pageInfo[state.type]
       request('/menu/query', {category, limit, page }).then(({code, data}) => {
         if (code === 1) {
-          if (data.totalPages >= state.pageInfo[state.value].page) {
-            state.pageInfo[state.value].page = data.page + 1
-            state.pageInfo[state.value].totalPages = data.totalPages
-            if (Array.isArray(state.pageInfo[state.value].list)) {
-              state.pageInfo[state.value].list.push(...data.records)
+          if (data.totalPages >= state.pageInfo[state.type].page) {
+            state.pageInfo[state.type].page = data.page + 1
+            state.pageInfo[state.type].totalPages = data.totalPages
+            if (Array.isArray(state.pageInfo[state.type].list)) {
+              state.pageInfo[state.type].list.push(...data.records)
             } else {
-              state.pageInfo[state.value].list = data.records
+              state.pageInfo[state.type].list = data.records
             }
           }
         }
@@ -60,23 +60,23 @@ export default {
     }
 
     useReachBottom(() => {
-      if (state.pageInfo[state.value].page >= state.pageInfo[state.value].totalPages) {
+      if (state.pageInfo[state.type].page >= state.pageInfo[state.type].totalPages) {
         return
       }
       getMenus()
     });
 
-    watch(() => state.value, () => {
-      if (!state.pageInfo[state.value]) {
+    watch(() => state.type, () => {
+      if (!state.pageInfo[state.type]) {
         state.menuList = []
-        state.pageInfo[state.value] = {
-          category: state.value,
+        state.pageInfo[state.type] = {
+          category: state.type,
           limit: 10,
           page: 1
         }
         getMenus()
       } else {
-        state.menuList = state.pageInfo[state.value].list
+        state.menuList = state.pageInfo[state.type].list
       }
     }, {
       immediate: true
@@ -86,22 +86,12 @@ export default {
       return (
         <View class="menu_category">
           <Search />
-          <NutTabs v-model={state.value} animated-time="0" auto-height title-scroll background="#fff">
+          <NutTabs v-model={state.type} animated-time="0" auto-height title-scroll background="#fff">
             {state.category.map((item, index) => (
               <NutTabPane pane-key={item.value} title={item.name} key={index}>
                 {
-                  state.pageInfo[state.value] && state.pageInfo[state.value]?.list ? (
-                    <View class="container">
-                      {
-                        state.pageInfo[state.value]?.list.map((menu, index) => (
-                          <Card
-                            title={menu.name}
-                            imgUrl={menu.imgUrl}
-                          >
-                          </Card>
-                        ))
-                      }
-                    </View>
+                  state.pageInfo[state.type] && state.pageInfo[state.type]?.list ? (
+                    <WaterFall items={state.pageInfo[state.type]?.list} column-count={2}/>
                   ) : null
                 }
               </NutTabPane>

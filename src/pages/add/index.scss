@@ -31,11 +31,37 @@
   overflow: hidden;
 }
 .nut-tab-pane {
+  padding: 0;
   padding-bottom: 90px;
 }
 
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* 两列布局 */
-  gap: 16px; /* 卡片之间的间距 */
+.waterfall-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.waterfall-column {
+  flex: 1;
+  margin: 0 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.waterfall-item {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.waterfall-image {
+  width: 100%;
+  display: block;
+}
+
+.waterfall-text {
+  padding: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.5;
 }
