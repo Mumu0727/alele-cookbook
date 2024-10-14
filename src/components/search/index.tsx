@@ -38,8 +38,10 @@ export default defineComponent({
     return () => (
       <View class="search-container">
         <View class="search-box" >
-          <View class="search-btn" type="primary"></View>
-          <Input class="search-input" type="text" placeholder="搜想吃" />
+          <View class="input_view" >
+            <View class="search-btn" type="primary"></View>
+            <Input class="search-input" type="text" placeholder="搜想吃" />
+          </View>
         </View>
       </View>
     )

@@ -2,7 +2,7 @@
  * @Description:
  * @Author: muqingkun
  * @Date: 2024-06-27 20:50:14
- * @LastEditTime: 2024-07-10 17:23:15
+ * @LastEditTime: 2024-10-08 16:21:33
  * @LastEditors: muqingkun
  * @Reference:
  */
@@ -28,6 +28,7 @@ const config = {
   outputRoot: 'front',
   alias: {
     '@': path.resolve(__dirname, '..', 'src'),
+    '@common': path.resolve(__dirname, '..', 'src/common'),
   },
   plugins: ['@tarojs/plugin-html'],
   defineConstants: {
@@ -107,7 +108,7 @@ const config = {
     }
   }
 }
-console.log('===process.env.NODE_ENV===', process.env.NODE_ENV);
+
 module.exports = function (merge) {
   if (process.env.NODE_ENV === 'development') {
     return merge({}, config, require('./dev'))

@@ -13,13 +13,14 @@
   z-index: 1000;
 }
 .nut-tabs .nut-tabs__titles.scrollable {
+  z-index: 999;
   position: fixed;
-  top: 40px;
+  top: 70px;
   left: 0;
 }
 .nut-tabs {
   padding-bottom: calc(130px + env(safe-area-inset-bottom));
-  padding-top: 40px;
+  padding-top: 128px;
 }
 .nut-card {
   margin-bottom: 20px;
@@ -50,7 +51,9 @@
 
 .waterfall-item {
   margin-bottom: 16px;
-  border-radius: 8px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.218);
+  position: relative;
   overflow: hidden;
 }
 
@@ -60,8 +63,17 @@
 }
 
 .waterfall-text {
-  padding: 12px;
-  font-size: 18px;
+  padding: 18px 18px 32px 18px;
+  font-size: 24px;
   font-weight: bold;
   line-height: 1.5;
+}
+.wish_btn {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  border: none;
 }

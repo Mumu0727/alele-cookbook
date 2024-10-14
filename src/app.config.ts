@@ -2,7 +2,7 @@
  * @Description:
  * @Author: muqingkun
  * @Date: 2024-06-19 14:49:18
- * @LastEditTime: 2024-06-28 14:21:56
+ * @LastEditTime: 2024-10-09 16:01:30
  * @LastEditors: muqingkun
  * @Reference:
  */
@@ -11,6 +11,7 @@ export default defineAppConfig({
     'pages/list/index',
     'pages/add/index',
     'pages/random/index',
+    'pages/wishList/wishList',
   ],
   tabBar: {
     backgroundColor: '#fff',

@@ -9,9 +9,11 @@ declare module 'vue' {
   export interface GlobalComponents {
     NutButton: typeof import('@nutui/nutui-taro')['Button']
     NutCell: typeof import('@nutui/nutui-taro')['Cell']
-    NutPopup: typeof import('@nutui/nutui-taro')['Popup']
     NutTabPane: typeof import('@nutui/nutui-taro')['TabPane']
     NutTabs: typeof import('@nutui/nutui-taro')['Tabs']
+    NutTimeDetail: typeof import('@nutui/nutui-taro')['TimeDetail']
+    NutTimePannel: typeof import('@nutui/nutui-taro')['TimePannel']
+    NutTimeSelect: typeof import('@nutui/nutui-taro')['TimeSelect']
     Waterfall: typeof import('./src/components/waterfall/index.vue')['default']
   }
 }

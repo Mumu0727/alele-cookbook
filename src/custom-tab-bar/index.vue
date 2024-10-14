@@ -2,12 +2,12 @@
  * @Description:
  * @Author: muqingkun
  * @Date: 2024-06-19 15:19:19
- * @LastEditTime: 2024-06-28 17:36:15
+ * @LastEditTime: 2024-10-09 15:26:29
  * @LastEditors: muqingkun
  * @Reference:
 -->
 <template>
-  <View class="tab-bar">
+  <View class="tab-bar" v-show="isShowTabBar">
     <View class="tab-bar-box">
       <View v-for="(item, index) in list" :key="index" class="tab-bar-item" @tap="switchTab(index, item.pagePath)">
         <View class="tab-bar-item-add" v-if="item.unique">
@@ -28,6 +28,8 @@ import { computed }  from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
 const selected = computed(() => store.getters.getSelected)
+
+const isShowTabBar = computed(() => store.getters.getIsShowTabBar)
 
 const color = '#000000'
 const selectedColor = '#DC143C'

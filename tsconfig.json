@@ -24,6 +24,7 @@
     "paths": {
       // TS5090 leading './'
       "@/*": ["./src/*"],
+      "@common/*": [".src/common/*"],
     }
   },
   "include": ["./src", "./types", "components.d.ts"],

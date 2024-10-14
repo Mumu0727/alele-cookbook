@@ -1,55 +1,60 @@
 <template>
-  <view class="waterfall-container">
-    <view class="waterfall-column" v-for="(column, index) in columns" :key="index">
-      <view v-for="(item, idx) in column" :key="idx" class="waterfall-item">
-        <image :src="IMG_URL + item.imgUrl" class="waterfall-image" mode="widthFix" />
-        <view class="waterfall-text">{{ item.name }}</view>
-      </view>
-    </view>
-  </view>
+  <View class="waterfall-container">
+    <View class="waterfall-column" v-for="(column, index) in columns" :key="index">
+      <View v-for="(item) in column" :key="item.id" class="waterfall-item">
+        <NutButton class="wish_btn" plain size="large" @click="handleWish(item)">
+          <template #icon>
+            <Addfollow v-if="!item.isWish" color="red" class="nut-icon-am-breathe nut-icon-am-infinite"></Addfollow>
+            <HeartFill v-else color="red" class="nut-icon-am-breathe nut-icon-am-infinite"></HeartFill>
+          </template>
+        </NutButton>
+        <Image :src="IMG_URL + item.imgUrl" class="waterfall-image" mode="widthFix" />
+        <View class="waterfall-text">{{ item.name }}</View>
+      </View>
+    </View>
+  </View>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, onMounted, watch } from 'vue';
+<script setup>
+  import { ref, onMounted, watch } from 'vue';
+  import { Addfollow, HeartFill } from '@nutui/icons-vue-taro'
+  import config from '@/common/constants';
 
-export default defineComponent({
-  name: 'WaterFall',
-  props: {
+  const emit = defineEmits(['wish'])
+  const props = defineProps({
     items: {
-      type: Array as () => Array<{ imgUrl: string; name: string, id: number }>,
+      type: Array,
       required: true,
+      default: () => []
     },
     columnCount: {
       type: Number,
       default: 2,
     },
-  },
-  setup(props) {
-    const columns = ref<Array<Array<{ imgUrl: string; name: string }>>>(Array.from({ length: props.columnCount }, () => []));
-    const IMG_URL = process.env.TARO_APP_IMG;
+  })
 
-    const distributeItems = () => {
-      // 将 items 分配到每一列中
-      props.items.forEach((item, index) => {
-        columns.value[index % props.columnCount].push(item);
-      });
-    };
+  const columns = ref(Array.from({ length: props.columnCount }, () => []));
+  const IMG_URL = config.imgUrl;
 
-    watch(() => (props.items),
-      () => {
-        distributeItems()
-      },
-      { deep: true }
-    )
+  const handleWish = (item) => {
+    emit('wish', item)
+  }
 
-    onMounted(() => {
-      distributeItems();
+  const distributeItems = () => {
+    (props.items || []).forEach((item, index) => {
+      columns.value[index % props.columnCount].push(item);
     });
+  };
 
-    return {
-      columns,
-      IMG_URL
-    };
-  },
-});
+  watch(() => (props.items),
+    () => {
+      columns.value = Array.from({ length: props.columnCount }, () => []);
+      distributeItems()
+    },
+    { deep: true }
+  )
+
+  onMounted(() => {
+    distributeItems();
+  });
 </script>

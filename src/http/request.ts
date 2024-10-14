@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro'
-// import api from "../api/login";
-
-const BASE_URL = process.env.TARO_APP_API
+import config from '@/common/constants';
+console.log("🚀 ~ config:", config)
+const BASE_URL = config.baseUrl
 
 /**
  * @param {Object} props
@@ -60,7 +60,7 @@ const baseOptions = (url: string, params: object = {}, method = 'get', config: c
     success(response) {
       Taro.hideLoading();
       const data = response.data;
-      if (data.code === 200) return data
+      if (data.code === 1) return data
       if (data.code === 403) return removeSorage()
       Taro.showToast({
         icon: 'none',
